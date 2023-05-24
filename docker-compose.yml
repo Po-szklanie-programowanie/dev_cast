@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  icecast2:
+    image: infiniteproject/icecast
+    container_name: icecast2
+    restart: always
+    ports:
+      - 8000:8000
+    volumes:
+      - ./configs/icecast/icecast.xml:/etc/icecast.xml
+  ffmpeg-phonk:
+    image: jrottenberg/ffmpeg
+    container_name: ffmpeg-phonk
+    volumes:
+      - ./songs/phonk/:/tmp/workdir/songs/
+      - ./configs/phonk/:/tmp/workdir/config/
+    ports:
+      - 9001:9001
+    tty: true
+    entrypoint:
+       - bash
+       - -c
+       - |
+          ./config/phonk_stream.sh
+  ffmpeg-lofi:
+    image: jrottenberg/ffmpeg
+    container_name: ffmpeg-lofi
+    volumes:
+      - ./songs/lofi/:/tmp/workdir/songs/
+      - ./configs/lofi/:/tmp/workdir/config/
+    ports:
+      - 9002:9002
+    tty: true
+    entrypoint:
+        - bash
+        - -c
+        - |
+          ./config/lofi_stream.sh
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev
