@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 5173
 
 # Uruchomienie serwera deweloperskiego
-CMD ["npm", "run", "dev", "--host", "0.0.0.0", "--port", "5173"]
+CMD ["npm", "install", "vue-router","&&","npm", "run", "dev", "--host", "0.0.0.0"]
