@@ -98,6 +98,17 @@
         <header name="Access-Control-Allow-Origin" value="*" />
     </http-headers>
 
+    <cors>
+        <domain>frontend:5173/player/phonk</domain>
+        <methods>GET, OPTIONS, POST</methods>
+        <headers>Origin, Accept, X-Requested-With, Content-Type</headers>
+    </cors>
+    <cors>
+        <domain>frontend:5173/player/lofi</domain>
+        <methods>GET, OPTIONS, POST</methods>
+        <headers>Origin, Accept, X-Requested-With, Content-Type</headers>
+    </cors>
+
 
     <!-- Relaying
          You don't need this if you only have one server.
