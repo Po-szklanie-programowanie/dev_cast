@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>{{ mountpoint }}</h2>
-        <audio ref="audioPlayer">
+        <audio ref="audioPlayer" controls @loadedmetadata="setProgressMax">
             <source type="audio/mpeg">
         </audio>
         <div class="audioControlParent">
@@ -29,12 +29,14 @@ import {ref} from 'vue'
             mountpoint: String
         },
         mounted() {
-            const audioPlayer: any = this.$refs.audioPlayer
+            const audioPlayer: HTMLAudioElement = this.$refs.audioPlayer as HTMLAudioElement
             audioPlayer.src = `http://localhost:8000/${this.mountpoint}`
+            //audioPlayer.muted = true
+            audioPlayer.addEventListener('loadedmetadata', this.setProgressMax)
             
         },
         methods: {
-            isMuted() {
+            isMuted(): boolean {
                 const audioPlayer: any = this.$refs.audioPlayer
                 if(audioPlayer.muted) {
                     return true
@@ -43,19 +45,22 @@ import {ref} from 'vue'
                     return false
                 }
             },
-            play() {
+            play(): void {
                 const audioPlayer: any = this.$refs.audioPlayer
                 if(audioPlayer.muted){
                     audioPlayer.muted = false
                 }
-                audioPlayer.play()
             },
-            stop() {
+            stop(): void {
                 const audioPlayer: any = this.$refs.audioPlayer
                 audioPlayer.muted = true
             },
             changeVolume(): void { 
                 (this.$refs.audioPlayer as HTMLAudioElement).volume = this.volume / 100
+            },
+            setProgressMax(): void {
+                const audioPlayer: HTMLAudioElement = this.$refs.audioPlayer as HTMLAudioElement
+                audioPlayer.currentTime = audioPlayer.duration - 1
             } 
         }
     }
