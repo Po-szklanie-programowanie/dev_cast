@@ -16,7 +16,7 @@ export default {
 </script>
 
 <template>
-    <Header text="DevCast/"/>
+    <Header text="/DevCast/"/>
     <Content />
     <Footer text="Dev Cast &copy; 2023 Jakub Goleń Szymon Bal"/>
 </template>
