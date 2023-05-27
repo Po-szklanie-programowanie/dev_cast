@@ -1,3 +1,5 @@
+
+# Songs
 songs/phonk/combined/*.mp3
 songs/phonk/raw/*.mp3
 songs/lofi/combined/*.mp3
@@ -28,8 +30,9 @@ dist-ssr
 *.sln
 *.sw?
 
-colors
-
+#backend
 venv
+__pycache__
 
+#postgres
 postgres-data

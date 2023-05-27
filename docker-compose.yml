@@ -33,10 +33,11 @@ services:
       - 9002:9002
     tty: true
     entrypoint:
-        - bash
-        - -c
-        - |
+       - bash
+       - -c
+       - |
           ./config/lofi_stream.sh
+  
   frontend:
     container_name: frontend
     build:
@@ -48,6 +49,15 @@ services:
       - ./frontend:/app
       - /app/node_modules
     command: npm run dev
+  
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 2137:80
+
   db:
     container_name: db
     image: postgres
@@ -59,8 +69,12 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
 
-  adminer:
-    container_name: adminer
-    image: adminer
+  pgadmin4:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
     ports:
-      - 5433:8080
+      - 5433:80
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=example@chuj.com
+      - PGADMIN_DEFAULT_PASSWORD=chuj
