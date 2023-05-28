@@ -4,7 +4,7 @@ from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer
 
 #określenie adresy bazy danych
-SQLALCHEMY_DATABASE_URL = "postgresql://user_1:postgres@localhost:5432/users"
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@localhost:2115/postgres"
 
 #utworzenie silnik potrzebnego do komunikacji z bazą
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
