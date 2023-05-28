@@ -63,7 +63,7 @@ services:
     image: postgres
     restart: always
     ports:
-      - 5432:5432
+      - 2115:5432
     environment:
       - POSTGRES_PASSWORD=postgres
     volumes:
@@ -74,7 +74,7 @@ services:
     image: dpage/pgadmin4
     ports:
       - 5433:80
-    restart: always
+   # restart: always
     environment:
       - PGADMIN_DEFAULT_EMAIL=rafal@dj.com
       - PGADMIN_DEFAULT_PASSWORD=platki
