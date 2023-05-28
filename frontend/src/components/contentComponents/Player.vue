@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>{{ mountpoint }}</h2>
-        <audio ref="audioPlayer" controls @loadedmetadata="setProgressMax">
+        <audio ref="audioPlayer" autoplay @loadedmetadata="setProgressMax">
             <source type="audio/mpeg">
         </audio>
         <div class="audioControlParent">

@@ -56,7 +56,9 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - 2137:80
+      - 2137:8000
+    tty: true
+    restart: always
 
   db:
     container_name: db
