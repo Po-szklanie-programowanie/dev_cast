@@ -1,12 +1,13 @@
 <template>
     <form @submit.prevent="login">
+        <h2>Login</h2>
         <label>
             email
-            <input v-model="form.email" type="text" required>
+            <input v-model="username" type="text" required>
         </label>
         <label>
             password
-            <input v-model="form.password" type="password" required>
+            <input v-model="password" type="password" required>
         </label>
         <button type="submit">
             Login
@@ -15,20 +16,46 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios';
+import qs from 'qs';
+
 export default {
     name: "Login",
     data() {
         return {
-            form: {
-                email: '',
-                password: ''
-            }
+            username: '',
+            password: '',
+            error: '',
         }
     },
     methods: {
-        login() {
-            console.log(this.form.email)
-            console.log(this.form.password)
+        async login() {
+            try {
+                const form = qs.stringify({
+                grant_type: '',
+                username: this.username,
+                password: this.password,
+                scope: '',
+                client_id: '',
+                client_secret: ''
+                });
+
+                const response = await axios.post(
+                    'http://localhost:2137/token/', form, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        }
+                    })
+                
+                const accessToken = response.data.access_token
+                const tokenType = response.data.token_type
+                localStorage.setItem('token', accessToken)
+                localStorage.setItem('token_type', tokenType)
+                this.$router.replace('/radio')
+            } catch(error) {
+                alert("chuj")
+                detail: this.error
+            }
         }
     }
 }
