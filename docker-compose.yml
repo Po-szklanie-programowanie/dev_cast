@@ -76,5 +76,5 @@ services:
       - 5433:80
     restart: always
     environment:
-      - PGADMIN_DEFAULT_EMAIL=example@chuj.com
-      - PGADMIN_DEFAULT_PASSWORD=chuj
+      - PGADMIN_DEFAULT_EMAIL=rafal@dj.com
+      - PGADMIN_DEFAULT_PASSWORD=platki
