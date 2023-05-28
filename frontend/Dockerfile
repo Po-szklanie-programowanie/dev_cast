@@ -15,6 +15,6 @@ COPY . .
 
 # Otwarcie portu na którym działa serwer deweloperski Vue
 EXPOSE 5173
-
+RUN yarn add qs vue-router axios vuex
 # Uruchomienie serwera deweloperskiego
-CMD ["npm", "install", "vue-router","&&","npm", "run", "dev", "--host", "0.0.0.0"]
+CMD ["npm", "run", "dev", "--host", "0.0.0.0"]
