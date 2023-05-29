@@ -39,7 +39,7 @@ export default {
         }
     },
     methods: {
-        async login() {
+        async apiRespond() {
             try {
                 const form = qs.stringify({
                 grant_type: '',
@@ -59,15 +59,18 @@ export default {
                 
                 const accessToken = response.data.access_token
                 const tokenType = response.data.token_type
-
                 localStorage.setItem('token', accessToken)
                 localStorage.setItem('token_type', tokenType)
-                this.setStateLoginTrue()
-                this.$router.replace('/radio')
+
             } catch(error) {
-                 alert("błąd logowania: zły login lub hasło")
-                 detail: this.error
-                }
+                alert("błąd logowania: zły login lub hasło")
+                detail: this.error
+            }
+        },
+        async login() {
+            this.apiRespond()
+            this.setStateLoginTrue()
+            this.$router.replace('/radio')
         }
     },
 }

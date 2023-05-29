@@ -1,7 +1,7 @@
 <template>
     <main>
         <router-view></router-view>
-        <div v-if="isLoggedIn.value">
+        <div v-if="isLoggedIn">
             <button @click="back">
                 &lt;
             </button>
@@ -13,15 +13,15 @@
 </template>
 
 <script lang="ts">
-import { inject } from 'vue';
+import { ComputedRef, inject } from 'vue';
 import { computed } from '@vue/reactivity';
 
 export default {
     name: "Content",
     setup() {
         const store = inject('store') as any
-        const isLoggedIn = computed(() => store.state.isLoggedIn)
-
+        const isLoggedIn = computed(() => store.state.isLoggedIn) as ComputedRef<any>
+        console.log(isLoggedIn.value)
         const setStateLoginFalse = () => {
             store.commit('setLoggedIn', false)
         }
