@@ -11,3 +11,23 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+button {
+    width: 5em;
+    height: 50%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+
+
+</style>

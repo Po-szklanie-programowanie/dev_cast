@@ -1,5 +1,6 @@
 <template>
     <form @submit.prevent="register">
+        <h2>Register</h2>
         <label>
             email:
             <input v-model="email" type="text" required>

@@ -18,6 +18,7 @@
 <script lang="ts">
 import axios from 'axios';
 import qs from 'qs';
+import { inject } from 'vue';
 
 export default {
     name: "Login",
@@ -26,6 +27,15 @@ export default {
             username: '',
             password: '',
             error: '',
+        }
+    },
+    setup() {
+        const store = inject('store') as any
+        const setStateLoginTrue = () => {
+            store.commit('setLoggedIn', true)
+        }
+        return {
+            setStateLoginTrue
         }
     },
     methods: {
@@ -49,23 +59,20 @@ export default {
                 
                 const accessToken = response.data.access_token
                 const tokenType = response.data.token_type
+
                 localStorage.setItem('token', accessToken)
                 localStorage.setItem('token_type', tokenType)
+                this.setStateLoginTrue()
                 this.$router.replace('/radio')
             } catch(error) {
-                alert("chuj")
-                detail: this.error
-            }
+                 alert("błąd logowania: zły login lub hasło")
+                 detail: this.error
+                }
         }
-    }
+    },
 }
 </script>
 
 <style scoped>
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
+
 </style>
