@@ -1,8 +1,8 @@
 <template>
-    <button @click="redirectToPage('/phonk')">
+    <button @click="redirectToPage('/player/phonk')">
         Phonk
     </button>
-    <button @click="redirectToPage('/lofi')">
+    <button @click="redirectToPage('/player/lofi')">
         Lofi
     </button>
 </template>

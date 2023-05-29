@@ -18,6 +18,8 @@ services:
     ports:
       - 9001:9001
     tty: true
+    depends_on:
+      - icecast2
     entrypoint:
        - bash
        - -c
@@ -32,6 +34,8 @@ services:
     ports:
       - 9002:9002
     tty: true
+    depends_on:
+      - icecast2
     entrypoint:
        - bash
        - -c
@@ -49,6 +53,8 @@ services:
       - ./frontend:/app
       - /app/node_modules
     command: npm run dev
+    depends_on:
+      - backend
   
   backend:
     container_name: backend
@@ -59,6 +65,8 @@ services:
       - 2137:8000
     tty: true
     restart: always
+    depends_on:
+      - db
 
   db:
     container_name: db
@@ -76,7 +84,9 @@ services:
     image: dpage/pgadmin4
     ports:
       - 5433:80
-   # restart: always
+    restart: always
     environment:
       - PGADMIN_DEFAULT_EMAIL=rafal@dj.com
       - PGADMIN_DEFAULT_PASSWORD=platki
+    depends_on:
+      - db

@@ -1,7 +1,8 @@
 <template>
     <div>
         <h2>{{ mountpoint }}</h2>
-        <audio ref="audioPlayer" autoplay @loadedmetadata="setProgressMax">
+        <img ref="gif" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="" width="220" height="124">
+        <audio ref="audioPlayer" autoplay>
             <source type="audio/mpeg">
         </audio>
         <div class="audioControlParent">
@@ -19,31 +20,35 @@
 
 <script lang="ts">
 import {ref} from 'vue'
-    export default {
-        data() {
-            return {
-                volume: ref(50),
+
+export default {
+    data() {
+        return {
+            volume: ref(50),
+        }
+    },
+    props: {
+        mountpoint: String
+    },
+    mounted() {
+        const audioPlayer: HTMLAudioElement = this.$refs.audioPlayer as HTMLAudioElement
+        const gif: HTMLImageElement = this.$refs.gif as HTMLImageElement
+        audioPlayer.src = `http://localhost:8000/${this.mountpoint}`
+        audioPlayer.addEventListener('playing', ()=>{
+            gif.src = "https://media.tenor.com/g5ZphcWaj1MAAAAM/dancing-duck-vibing-duck.gif"
+        })
+        
+        
+    },
+    methods: {
+        isMuted(): boolean {
+            const audioPlayer: any = this.$refs.audioPlayer
+            if(audioPlayer.muted) {
+                return true
             }
-        },
-        props: {
-            mountpoint: String
-        },
-        mounted() {
-            const audioPlayer: HTMLAudioElement = this.$refs.audioPlayer as HTMLAudioElement
-            audioPlayer.src = `http://localhost:8000/${this.mountpoint}`
-            //audioPlayer.muted = true
-            audioPlayer.addEventListener('loadedmetadata', this.setProgressMax)
-            
-        },
-        methods: {
-            isMuted(): boolean {
-                const audioPlayer: any = this.$refs.audioPlayer
-                if(audioPlayer.muted) {
-                    return true
-                }
-                else {
-                    return false
-                }
+            else {
+                return false
+            }
             },
             play(): void {
                 const audioPlayer: any = this.$refs.audioPlayer
@@ -57,11 +62,7 @@ import {ref} from 'vue'
             },
             changeVolume(): void { 
                 (this.$refs.audioPlayer as HTMLAudioElement).volume = this.volume / 100
-            },
-            setProgressMax(): void {
-                const audioPlayer: HTMLAudioElement = this.$refs.audioPlayer as HTMLAudioElement
-                audioPlayer.currentTime = audioPlayer.duration - 1
-            } 
+            }
         }
     }
 </script>

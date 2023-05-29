@@ -1,12 +1,13 @@
 <template>
     <form @submit.prevent="login">
+        <h2>Login</h2>
         <label>
             email
-            <input v-model="form.email" type="text" required>
+            <input v-model="username" type="text" required>
         </label>
         <label>
             password
-            <input v-model="form.password" type="password" required>
+            <input v-model="password" type="password" required>
         </label>
         <button type="submit">
             Login
@@ -15,30 +16,63 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios';
+import qs from 'qs';
+import { inject } from 'vue';
+
 export default {
     name: "Login",
     data() {
         return {
-            form: {
-                email: '',
-                password: ''
-            }
+            username: '',
+            password: '',
+            error: '',
+        }
+    },
+    setup() {
+        const store = inject('store') as any
+        const setStateLoginTrue = () => {
+            store.commit('setLoggedIn', true)
+        }
+        return {
+            setStateLoginTrue
         }
     },
     methods: {
-        login() {
-            console.log(this.form.email)
-            console.log(this.form.password)
+        async login() {
+            try {
+                const form = qs.stringify({
+                grant_type: '',
+                username: this.username,
+                password: this.password,
+                scope: '',
+                client_id: '',
+                client_secret: ''
+                });
+
+                const response = await axios.post(
+                    'http://localhost:2137/token/', form, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        }
+                    })
+                
+                const accessToken = response.data.access_token
+                const tokenType = response.data.token_type
+
+                localStorage.setItem('token', accessToken)
+                localStorage.setItem('token_type', tokenType)
+                this.setStateLoginTrue()
+                this.$router.replace('/radio')
+            } catch(error) {
+                 alert("błąd logowania: zły login lub hasło")
+                 detail: this.error
+                }
         }
-    }
+    },
 }
 </script>
 
 <style scoped>
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
+
 </style>
