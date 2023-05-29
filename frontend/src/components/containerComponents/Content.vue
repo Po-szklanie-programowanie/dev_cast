@@ -1,8 +1,8 @@
 <template>
     <main>
         <router-view></router-view>
-        <div v-if="isLoggedIn">
-            <button>
+        <div v-if="isLoggedIn.value">
+            <button @click="back">
                 &lt;
             </button>
             <button @click="logout">
@@ -35,7 +35,7 @@ export default {
             localStorage.removeItem('token')
             localStorage.removeItem('tokenType')
             this.setStateLoginFalse()
-            this.$router.push('/')
+            this.$router.replace('/')
         },
         back(): void {
             this.$router.go(-1);
