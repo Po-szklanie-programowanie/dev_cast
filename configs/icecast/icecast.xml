@@ -3,7 +3,7 @@
          on the server info page of the icecast web interface
          (server_version.xsl). -->
     <location>Rzeszow</location>
-    <admin>djwielkichuj@localhost</admin>
+    <admin>djtutel@localhost</admin>
 
     <!-- IMPORTANT!
          Especially for inexperienced users:
