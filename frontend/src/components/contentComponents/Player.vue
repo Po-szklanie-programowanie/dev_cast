@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="isLoggedIn">
         <h2>{{ mountpoint }}</h2>
         <img ref="gif" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="" width="220" height="124">
         <audio ref="audioPlayer" autoplay>
@@ -16,15 +16,27 @@
             </div>
         </div>
     </div>
+    <div v-else>
+        <h2>Nie zalogowałeś się !</h2>
+    </div>
 </template>
 
 <script lang="ts">
-import {ref} from 'vue'
+import {ref, inject} from 'vue';
+import { computed } from '@vue/reactivity';
 
 export default {
     data() {
         return {
             volume: ref(50),
+        }
+    },
+    setup() {
+        const store = inject('store') as any
+        const isLoggedIn = computed(() => store.state.isLoggedIn)
+
+        return {
+            isLoggedIn
         }
     },
     props: {
