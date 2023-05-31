@@ -3,7 +3,7 @@
          on the server info page of the icecast web interface
          (server_version.xsl). -->
     <location>Rzeszow</location>
-    <admin>djwielkichuj@localhost</admin>
+    <admin>djtutel@localhost</admin>
 
     <!-- IMPORTANT!
          Especially for inexperienced users:
@@ -97,6 +97,17 @@
     <http-headers>
         <header name="Access-Control-Allow-Origin" value="*" />
     </http-headers>
+
+    <cors>
+        <domain>frontend:5173/player/phonk</domain>
+        <methods>GET, OPTIONS, POST</methods>
+        <headers>Origin, Accept, X-Requested-With, Content-Type</headers>
+    </cors>
+    <cors>
+        <domain>frontend:5173/player/lofi</domain>
+        <methods>GET, OPTIONS, POST</methods>
+        <headers>Origin, Accept, X-Requested-With, Content-Type</headers>
+    </cors>
 
 
     <!-- Relaying

@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 music_folder="songs/raw/"
 icecast_url="icecast://lofi_source:gimmie_music@icecast2:8000/lofi"
 silence_duration=5  # Przerwa czasowa między piosenkami w sekundach
